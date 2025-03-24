@@ -8,6 +8,15 @@ const Event = require("./models/events.model");
 app.use(express.json());
 initializeDatabase();
 
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 // create events
 async function createEvent(newEvent) {
   try {
