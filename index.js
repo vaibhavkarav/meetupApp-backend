@@ -39,6 +39,7 @@ app.post("/events", async (req, res) => {
   }
 });
 
+// get all events
 async function readAllEvents() {
   try {
     const allEvents = await Event.find();
@@ -58,6 +59,25 @@ app.get("/events", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch events." });
+  }
+});
+
+// get event by id
+async function readEventById(eventId) {
+  try {
+    const eventById = await Event.findById(eventId);
+    return eventById;
+  } catch (error) {
+    throw error;
+  }
+}
+
+app.get("/events/:eventId", async (req, res) => {
+  try {
+    const event = await readEventById(req.params.eventId);
+    res.json(event);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch event." });
   }
 });
 
